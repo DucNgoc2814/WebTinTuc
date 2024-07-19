@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -36,5 +39,19 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
         $this->middleware('auth')->only('logout');
+    }
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        throw ValidationException::withMessages([
+            $this->username() => ['Thông tin đăng nhập không chính xác.'],
+        ])->status(422);
+    }
+    protected function attemptLogin(Request $request)
+    {
+        if (!Auth::attempt($this->credentials($request))) {
+            // Xử lý logic khi đăng nhập thất bại
+            return false;
+        }
+        return true;
     }
 }

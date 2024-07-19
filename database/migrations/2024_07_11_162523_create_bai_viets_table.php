@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('ma')->unique();
             $table->string('tieu_de');
             $table->text('noi_dung')->nullable();
-            $table->string('anh')->nullable();
             $table->text('mo_ta')->nullable();
             $table->integer('luot_xem')->default(0);
             $table->boolean('is_trending')->default(false);

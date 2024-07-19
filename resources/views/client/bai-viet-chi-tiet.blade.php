@@ -11,14 +11,14 @@
                 <div class=" col-lg-9   mb-5 mb-lg-0">
                     <article>
                         <div class="post-slider mb-4">
-                            <img src="images/post/post-2.jpg" class="card-img" alt="post-thumb">
+                            <img src="{{ asset('theme/client/images/post/post-2.jpg') }}" class="card-img" alt="post-thumb">
                         </div>
 
                         <h1 class="h2">Customer Engage Marketing Marketing Strategy to Economy Structure Everyone. </h1>
                         <ul class="card-meta my-3 list-inline">
                             <li class="list-inline-item">
                                 <a href="author-single.html" class="card-meta-author">
-                                    <img src="images/john-doe.jpg">
+                                    <img src="{{ asset('theme/client/images/john-doe.jpg') }}">
                                     <span>Charls Xaviar</span>
                                 </a>
                             </li>
@@ -77,7 +77,8 @@
 
                         <div class="media d-block d-sm-flex mb-4 pb-4">
                             <a class="d-inline-block mr-2 mb-3 mb-md-0" href="#">
-                                <img src="images/post/user-01.jpg" class="mr-3 rounded-circle" alt="">
+                                <img src="{{ asset('theme/client/images/post/user-01.jpg') }}" class="mr-3 rounded-circle"
+                                    alt="">
                             </a>
                             <div class="media-body">
                                 <a href="#!" class="h4 d-inline-block mb-3">Alexender Grahambel</a>
@@ -94,8 +95,8 @@
                         <div class="media d-block d-sm-flex">
                             <div class="d-inline-block mr-2 mb-3 mb-md-0" href="#">
                                 <img class="mr-3" src="images/post/arrow.png" alt="">
-                                <a href="#!"><img src="images/post/user-02.jpg" class="mr-3 rounded-circle"
-                                        alt=""></a>
+                                <a href="#!"><img src="{{ asset('theme/client/images/post/user-02.jpg') }}"
+                                        class="mr-3 rounded-circle" alt=""></a>
                             </div>
                             <div class="media-body">
                                 <a href="#!" class="h4 d-inline-block mb-3">Nadia Sultana Tisa</a>

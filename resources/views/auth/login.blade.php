@@ -31,7 +31,6 @@
                                 <div class="p-2 mt-4">
                                     <form method="POST" action="{{ route('dang-nhap') }}">
                                         @csrf
-
                                         <div class="mb-3">
                                             <label for="email" class="form-label text-md-end">{{ __('Email') }}</label>
                                             <div class="position-relative auth-pass-inputgroup mb-3">
