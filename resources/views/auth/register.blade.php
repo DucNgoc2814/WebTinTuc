@@ -34,7 +34,7 @@
                                         class="text-danger">*</span></label>
                                         <div class="">
                                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"
-                                             placeholder="Nhập email" required autocomplete="email">
+                                             placeholder="Nhập email" autocomplete="email">
                                             @error('email')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -47,7 +47,7 @@
                                         class="text-danger">*</span></label>
                                         <div class="">
                                             <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" 
-                                            placeholder="Nhập tên hiển thị" required autocomplete="name" autofocus>
+                                            placeholder="Nhập tên hiển thị" autocomplete="name" autofocus>
                                             @error('name')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -62,7 +62,7 @@
                                                     class="text-danger">*</span></label>
                                                 <div class="">
                                                     <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password"
-                                                    placeholder="Nhập mật khẩu" required autocomplete="new-password">
+                                                    placeholder="Nhập mật khẩu" autocomplete="new-password">
                                                     @error('password')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
@@ -75,7 +75,7 @@
 
                                         <div class="">
                                             <input id="password-confirm" type="password" class="form-control" name="password_confirmation" 
-                                            placeholder="Xác nhận mật khẩu" required autocomplete="new-password">
+                                            placeholder="Xác nhận mật khẩu" autocomplete="new-password">
                                         </div>
                                     </div>
 

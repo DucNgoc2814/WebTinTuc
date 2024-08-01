@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Models\DanhMuc;
-use App\Http\Requests\StoreDanhMucRequest;
-use App\Http\Requests\UpdateDanhMucRequest;
+use App\Models\Post;
 use App\Http\Controllers\Controller;
 
-class DanhMucController extends Controller
+use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
+
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,7 +29,7 @@ class DanhMucController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreDanhMucRequest $request)
+    public function store(StorePostRequest $request)
     {
         //
     }
@@ -36,7 +37,7 @@ class DanhMucController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(DanhMuc $danhMuc)
+    public function show(Post $post)
     {
         //
     }
@@ -44,7 +45,7 @@ class DanhMucController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(DanhMuc $danhMuc)
+    public function edit(Post $post)
     {
         //
     }
@@ -52,7 +53,7 @@ class DanhMucController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateDanhMucRequest $request, DanhMuc $danhMuc)
+    public function update(UpdatePostRequest $request, Post $post)
     {
         //
     }
@@ -60,7 +61,7 @@ class DanhMucController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(DanhMuc $danhMuc)
+    public function destroy(Post $post)
     {
         //
     }

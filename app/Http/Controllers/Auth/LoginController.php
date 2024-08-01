@@ -1,57 +1,46 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\auth;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
 
-    use AuthenticatesUsers;
-
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/';
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function showLoginForm()
     {
-        $this->middleware('guest')->except('logout');
-        $this->middleware('auth')->only('logout');
+        return view('auth.login');
     }
-    protected function sendFailedLoginResponse(Request $request)
+    public function login()
     {
-        throw ValidationException::withMessages([
-            $this->username() => ['Thông tin đăng nhập không chính xác.'],
-        ])->status(422);
-    }
-    protected function attemptLogin(Request $request)
-    {
-        if (!Auth::attempt($this->credentials($request))) {
-            // Xử lý logic khi đăng nhập thất bại
-            return false;
+        $rules = [
+            'email'     => 'required|string|email',
+            'password'  => 'required|string',
+        ];
+
+        $messages =  [
+            'email.required'        => 'Email không được bỏ trống.',
+            'email.email'           => 'Email không hợp lệ.',
+            'password.required'     => 'Mật khẩu không được bỏ trống.',
+        ];
+        $account = request()->validate($rules, $messages);
+        if (Auth::attempt($account)) {
+            request()->session()->regenerate();
+            if (auth()->user()->type === 'admin') {
+                return redirect()->intended('/admin');
+            }
+            return redirect()->intended('/');
         }
-        return true;
+        return back()->withErrors([
+            'email' => 'Thông tin tài khoản hoặc mật khẩu không chính xác.',
+        ])->onlyInput('email');
+    }
+    public function logout()
+    {
+        Auth::logout();
+        request()->session()->invalidate();
+        return redirect('/');
     }
 }

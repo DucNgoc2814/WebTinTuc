@@ -8,10 +8,10 @@
         </a>
         <div class="dropdown-menu">
             @php
-                $danh_mucs = DB::table('danh_mucs')->get();
+                $danh_mucs = DB::table('categories')->get();
             @endphp
             @foreach ($danh_mucs as $danh_muc)
-                <a class="dropdown-item" href="{{ route('danh-muc', $danh_muc->ma) }}">{{ $danh_muc->ten }}</a>
+                <a class="dropdown-item" href="{{ route('danh-muc', $danh_muc->slug) }}">{{ $danh_muc->name }}</a>
             @endforeach
         </div>
     </li>

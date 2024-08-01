@@ -456,10 +456,9 @@
                     <div class="widget widget-categories">
                         <h4 class="widget-title"><span>Danh mục</span></h4>
                         <ul class="list-unstyled widget-list">
-
                             @foreach ($data['danh_mucs'] as $danhmuc)
                                 <li>
-                                    <a href="{{ route('danh-muc', $danhmuc->ma) }}" class="d-flex">{{ $danhmuc->ten }}
+                                    <a href="{{ route('danh-muc', $danhmuc->slug) }}" class="d-flex">{{ $danhmuc->name }}
                                         <small class="ml-auto">(4)</small></a>
                                 </li>
                             @endforeach
@@ -486,58 +485,7 @@
                             <li class="list-inline-item"><a href="tags.html">Vlog</a></li>
                             <li class="list-inline-item"><a href="tags.html">Wow</a></li>
                         </ul>
-                    </div><!-- recent post -->
-                    <div class="widget">
-                        <h4 class="widget-title">Recent Post</h4>
-
-                        <!-- post-item -->
-                        <article class="widget-card">
-                            <div class="d-flex">
-                                <img class="card-img-sm" src="{{ asset('theme/client/images/post/post-10.jpg') }}">
-                                <div class="ml-3">
-                                    <h5><a class="post-title" href="post/elements/">Elements That You Can Use In
-                                            This
-                                            Template.</a></h5>
-                                    <ul class="card-meta list-inline mb-0">
-                                        <li class="list-inline-item mb-0">
-                                            <i class="ti-calendar"></i>15 jan, 2020
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </article>
-
-                        <article class="widget-card">
-                            <div class="d-flex">
-                                <img class="card-img-sm" src="{{ asset('theme/client/images/post/post-3.jpg') }}">
-                                <div class="ml-3">
-                                    <h5><a class="post-title" href="post-details.html">Advice From a Twenty
-                                            Something</a></h5>
-                                    <ul class="card-meta list-inline mb-0">
-                                        <li class="list-inline-item mb-0">
-                                            <i class="ti-calendar"></i>14 jan, 2020
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </article>
-
-                        <article class="widget-card">
-                            <div class="d-flex">
-                                <img class="card-img-sm" src="{{ asset('theme/client/images/post/post-7.jpg') }}">
-                                <div class="ml-3">
-                                    <h5><a class="post-title" href="post-details.html">Advice From a Twenty
-                                            Something</a></h5>
-                                    <ul class="card-meta list-inline mb-0">
-                                        <li class="list-inline-item mb-0">
-                                            <i class="ti-calendar"></i>14 jan, 2020
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </article>
                     </div>
-
                 </aside>
             </div>
         </div>

@@ -7,6 +7,5 @@
 
     <script src="{{ asset('theme/client/plugins/instafeed/instafeed.min.js') }}"></script>
 
-
     <!-- Main Script -->
     <script src="{{ asset('theme/client/js/script.js') }}"></script>

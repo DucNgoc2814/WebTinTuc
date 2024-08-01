@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('danh_mucs', function (Blueprint $table) {
+        Schema::create('medias', function (Blueprint $table) {
             $table->id();
-            $table->string('ten');
-            $table->string('ma');
-            $table->boolean('is_active')->default(true);
+            $table->string('url');
+            $table->string('mime_id');
+            $table->string('mime_type');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('danh_mucs');
+        Schema::dropIfExists('medias');
     }
 };

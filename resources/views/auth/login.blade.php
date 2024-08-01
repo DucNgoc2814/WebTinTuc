@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+
     <div class="auth-page-wrapper pt-5 mb-5">
         <!-- auth page content -->
         <div class="auth-page-content">
@@ -36,7 +37,7 @@
                                             <div class="position-relative auth-pass-inputgroup mb-3">
                                                 <input id="email" type="email"
                                                     class="form-control @error('email') is-invalid @enderror" name="email"
-                                                    value="{{ old('email') }}" placeholder="Nhập email" required
+                                                    value="{{ old('email') }}" placeholder="Nhập email"
                                                     autocomplete="email" autofocus>
                                                 @error('email')
                                                     <span class="invalid-feedback" role="alert">
@@ -52,7 +53,7 @@
                                             <div class="position-relative auth-pass-inputgroup mb-3">
                                                 <input id="password" type="password"
                                                     class="form-control @error('password') is-invalid @enderror"
-                                                    name="password" placeholder="Nhập mật khẩu" required
+                                                    name="password" placeholder="Nhập mật khẩu"
                                                     autocomplete="current-password">
                                                 @error('password')
                                                     <span class="invalid-feedback" role="alert">
@@ -61,10 +62,9 @@
                                                 @enderror
                                             </div>
                                             <div class="float-end">
-                                                    <a class="text-muted"
-                                                        href="{{ route('password.request') }}">
-                                                        {{ __('Quên mật khẩu?') }}
-                                                    </a>
+                                                <a class="text-muted" href="{{ route('quen-mat-khau') }}">
+                                                    {{ __('Quên mật khẩu?') }}
+                                                </a>
                                             </div>
                                         </div>
                                         <div class="mt-4">
