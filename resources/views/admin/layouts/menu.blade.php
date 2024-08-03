@@ -27,7 +27,7 @@
                                     mới</a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages-timeline.html" class="nav-link" data-key="t-timeline">
+                                <a href="{{ route('admin.bai-viet-da-xoa') }}" class="nav-link" data-key="t-timeline">
                                     Thùng rác</a>
                             </li>
                         </ul>
@@ -42,17 +42,17 @@
                     <div class="collapse menu-dropdown" id="sidebarLanding">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="landing.html" class="nav-link" data-key="t-one-page">Danh sách</a>
+                                <a href="{{ route('admin.danh-muc.index') }}" class="nav-link" data-key="t-one-page">Danh sách</a>
                             </li>
                             <li class="nav-item">
-                                <a href="nft-landing.html" class="nav-link" data-key="t-nft-landing">Thêm mới</a>
+                                <a href="{{ route('admin.danh-muc.create') }}" class="nav-link" data-key="t-nft-landing">Thêm mới</a>
                             </li>
                         </ul>
                     </div>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarAuth" role="button" aria-expanded="false"
+                    <a class="nav-link menu-link" href="{{ route('admin.tai-khoan') }}" role="button" aria-expanded="false"
                         aria-controls="sidebarAuth">
                         <i class="ri-account-circle-line"></i> <span data-key="t-authentication">Tài khoản</span>
                     </a>

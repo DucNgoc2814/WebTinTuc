@@ -12,4 +12,9 @@ class UserController extends Controller
     {
         return User::query()->limit(5)->get();
     }
+    public static function index()
+    {
+        $users = User::query()->get();
+        return view('admin.Auth.index', compact('users'));
+    }
 }

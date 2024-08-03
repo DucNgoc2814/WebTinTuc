@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="{{ asset('theme/client/plugins/bootstrap/bootstrap.min.css') }}">
 <link rel="stylesheet" href="{{ asset('theme/client/plugins/themify-icons/themify-icons.css') }}">
 <link rel="stylesheet" href="{{ asset('theme/client/plugins/slick/slick.css') }}">
-
+<link rel="stylesheet" href="{{ asset('css/app.css') }}">
 <!-- Main Stylesheet -->
 <link rel="stylesheet" href="{{ asset('theme/client/css/style.css') }}" media="screen">
 {{-- <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" /> --}}
