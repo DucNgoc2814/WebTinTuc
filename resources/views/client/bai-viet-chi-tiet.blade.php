@@ -1,7 +1,7 @@
 @extends('client.layouts.master')
 
 @section('title')
-    Bảng điều khiển
+    Nhịp đập thể thao
 @endsection
 
 @section('content')

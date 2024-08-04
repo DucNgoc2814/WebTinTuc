@@ -7,8 +7,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Media;
 use Exception;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use voku\helper\ASCII;
@@ -23,7 +25,14 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = Post::where('is_active', 1)->orderByDesc('id')->paginate(10);
+        $search = request()->search;
+
+        $posts = Post::query()
+            ->where('posts.is_active', 1)
+            ->where('title', 'LIKE', "%{$search}%")
+            ->orderByDesc('posts.id')
+            ->paginate(10)->appends(request()->except('page'));
+        // ->appends(request()->except('page')); khi search thì nó sẽ giữ lại các tham số còn lại
         return view(self::PATH_VIEW . __FUNCTION__, compact('posts'));
     }
 
@@ -36,61 +45,66 @@ class PostController extends Controller
         return view(self::PATH_VIEW . __FUNCTION__, compact('danhMucs'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
+
     public function store(StorePostRequest $request)
     {
+        dd($request->all());
         $image = '';
+        $validatedData = $request->validated();
         try {
-            DB::transaction(function () use ($request) {
-                if ($request->hasFile("image")) {
+            DB::transaction(function () use ($request, &$image) {
+                if ($request->hasFile('image')) {
                     $image = Storage::put('', $request->file("image"));
                 }
-                $slug = Str::slug(ASCII::to_ascii($request->title));
+                $slug = Str::slug($request['title']);
                 $post = Post::create([
                     'user_id' => auth()->user()->id,
-                    'title' => $request->title,
+                    'title' => $request['title'],
                     'slug' => $slug,
-                    'description' => $request->description,
-                    'content' => $request->content,
-                    'category_id' => $request->category_id,
-                    'is_active' => $request->is_active,
+                    'description' => $request['description'],
+                    'content' => $request['content'],
+                    'category_id' => $request['category_id'],
+                    'is_active' => $request->has('is_active'),
                     'is_trending' => $request->has('is_trending'),
-                    'is_popular' => $request->has('is_popular')
+                    'is_popular' => $request->has('is_popular'),
                 ]);
-                Media::query()->create([
-                    'url' => $image,
-                    'mime_id' => $post->id,
-                    'mime_type' => 'post',
-                ]);
+                if ($image) {
+                    Media::query()->create([
+                        'url' => $image,
+                        'mime_id' => $post->id,
+                        'mime_type' => 'post',
+                    ]);
+                }
             }, 3);
 
-            return redirect()
-                ->route('admin.bai-viet.index')
+            return redirect()->route('admin.bai-viet.index')
                 ->with('success', 'Thao tác thành công!');
         } catch (Exception $exception) {
-            if (Storage::exists($image)) {
+            if ($image && Storage::exists($image)) {
                 Storage::delete($image);
             }
-            return back()->with('error', $exception->getMessage());
+            dd($exception->getMessage());
+            // return back()->with('error', $exception->getMessage());
         }
     }
+
 
     /**
      * Display the specified resource.
      */
-    public function show(String $post)
+    public function show(String $slug)
     {
-        $data = Post::query()->find($post);
         $post = Post::query()
             ->join('media', 'posts.id', 'media.mime_id')
             ->where('media.mime_type', 'post')
             ->select('posts.*', 'media.url as image')
-            ->where('slug', $data->slug)
+            ->where('slug', $slug)
             ->first();
 
-        return view('client.bai-viet-chi-tiet', compact('post'));
+        $comments = Comment::where('post_id', $post->id)->get();
+
+        return view('client.bai-viet-chi-tiet', compact('post', 'comments'));
     }
 
     /**
@@ -161,11 +175,9 @@ class PostController extends Controller
     public function destroy(String $post)
     {
         try {
-            DB::transaction(function () use ($post) {
-                Post::query()->find($post)->update([
-                    'is_active' => 0
-                ]);
-            });
+            Post::query()->find($post)->update([
+                'is_active' => 0
+            ]);
 
             return back()->with('success', 'Thao tác thành công!');
         } catch (Exception $exception) {
@@ -181,11 +193,9 @@ class PostController extends Controller
     public function postRestore(String $post)
     {
         try {
-            DB::transaction(function () use ($post) {
-                Post::query()->find($post)->update([
-                    'is_active' => 1
-                ]);
-            });
+            Post::query()->find($post)->update([
+                'is_active' => 1
+            ]);
 
             return back()->with('success', 'Thao tác thành công!');
         } catch (Exception $exception) {

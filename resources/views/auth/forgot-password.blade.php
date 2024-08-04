@@ -44,7 +44,7 @@
                                     </div>
                                 @endif
 
-                                <form method="POST" action="">
+                                <form method="POST" action="{{ route('quen-mat-khau') }}">
                                     @csrf
 
                                     <div class="mb-4">

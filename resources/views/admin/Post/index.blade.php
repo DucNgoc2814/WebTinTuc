@@ -41,11 +41,11 @@
                                     </div>
                                     <div class="col-sm">
                                         <div class="d-flex justify-content-sm-end">
-                                            <div class="search-box ms-2">
-                                                <input type="text" class="form-control" id="searchProductList"
+                                            <form class="search-box ms-2" method="GET" action="{{ route('admin.bai-viet.index') }}">
+                                                <input type="text" class="form-control" id="searchProductList" name="search"
                                                     placeholder="Tìm bài viết...">
                                                 <i class="ri-search-line search-icon"></i>
-                                            </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -109,7 +109,7 @@
                                                                         </span></td>
                                                                     <td data-column-id="product" class="gridjs-td"><span>
                                                                             <h5 class="fs-14 mb-1"><a
-                                                                                    href="{{ route('admin.bai-viet.show', $post) }}"
+                                                                                    href="{{ route('admin.bai-viet.show', $post->slug) }}"
                                                                                     class="text-body">{{ $post->title }}</a>
                                                                             </h5>
                                                                         </span></td>
@@ -142,7 +142,7 @@
                                                                                 <ul
                                                                                     class="dropdown-menu dropdown-menu-end">
                                                                                     <li><a class="dropdown-item"
-                                                                                            href="{{ route('admin.bai-viet.show', $post) }}"><i
+                                                                                            href="{{ route('admin.bai-viet.show', $post->slug) }}"><i
                                                                                                 class="ri-eye-fill align-bottom me-2 text-muted"></i>
                                                                                             Xem</a></li>
                                                                                     <li><a class="dropdown-item edit-list"

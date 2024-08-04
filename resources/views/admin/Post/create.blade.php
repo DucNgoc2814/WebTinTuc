@@ -25,9 +25,18 @@
             </div>
             <!-- end page title -->
 
-            <form id="createproduct-form" autocomplete="off" class="needs-validation" method="POST" action="{{ route('admin.bai-viet.store') }}" enctype="multipart/form-data">
+            <form id="createproduct-form" autocomplete="off" method="POST"
+                action="{{ route('admin.bai-viet.store') }}" enctype="multipart/form-data">
                 @csrf
-                
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="row">
                     <div class="col-lg-8">
                         <div class="card">
@@ -36,8 +45,15 @@
                                     <label class="form-label" for="product-title-input">Tiêu đề</label>
                                     <input type="text" class="form-control" id="product-title-input" value=""
                                         placeholder="Thêm tiêu đề" name="title">
+                                    @error('title')
+                                        <span role="alert">
+                                            <span class="text-danger">a</span>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
+
+
                         </div>
                         <!-- end card -->
 
@@ -48,6 +64,11 @@
                                     <div>
                                         <label class="form-label" for="meta-description-input">Mô tả bài viết</label>
                                         <textarea class="form-control" id="meta-description-input" placeholder="Nhập mô tả" rows="3" name="description"></textarea>
+                                        @error('description')
+                                            <span role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -58,6 +79,11 @@
                                     <div>
                                         <label class="form-label" for="meta-description-input">Nội dung bài viết</label>
                                         <textarea class="form-control" id="meta-description-input" placeholder="Nhập nội dung" rows="9" name="content"></textarea>
+                                        @error('content')
+                                            <span role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -73,18 +99,18 @@
                         <div class="card">
                             <div class="card-body d-flex justify-content-around">
                                 <div class="form-check form-switch form-switch">
-                                    <input class="form-check-input" type="checkbox" name="is_active"
-                                        value="1" id="is_active" checked>
+                                    <input class="form-check-input" type="checkbox" name="is_active" value="1"
+                                        id="is_active" checked>
                                     <label class="form-check-label" for="1">Hiển thị</label>
                                 </div>
                                 <div class="form-check form-switch form-switch">
-                                    <input class="form-check-input" type="checkbox" name="is_trending"
-                                        value="1" id="is_trending">
+                                    <input class="form-check-input" type="checkbox" name="is_trending" value="1"
+                                        id="is_trending">
                                     <label class="form-check-label" for="is_trending">Nổi bật</label>
                                 </div>
                                 <div class="form-check form-switch form-switch">
-                                    <input class="form-check-input" type="checkbox" name="is_popular"
-                                        value="1" id="is_popular">
+                                    <input class="form-check-input" type="checkbox" name="is_popular" value="1"
+                                        id="is_popular">
                                     <label class="form-check-label" for="is_popular">Phổ biến</label>
                                 </div>
                             </div>
@@ -96,8 +122,8 @@
                                 <h5 class="card-title mb-0">Danh mục</h5>
                             </div>
                             <div class="card-body">
-                                <select class="form-select" id="choices-category-input" name="category_id"
-                                    data-choices data-choices-search-false>
+                                <select class="form-select" id="choices-category-input" name="category_id" data-choices
+                                    data-choices-search-false>
                                     @foreach ($danhMucs as $danhMuc)
                                         <option value="{{ $danhMuc->id }}">{{ $danhMuc->name }}</option>
                                     @endforeach
@@ -126,11 +152,11 @@
                                                 </label>
                                                 <input class="form-control d-none" value=""
                                                     id="product-image-input" type="file"
-                                                    accept="image/png, image/gif, image/jpeg" name="image" >
+                                                    accept="image/png, image/gif, image/jpeg" name="image">
                                             </div>
                                             <div class="avatar-lg">
                                                 <div class="avatar-title bg-light rounded">
-                                                    <img src="" id="product-img" class="avatar-md h-auto"  />
+                                                    <img src="" id="product-img" class="avatar-md h-auto" />
                                                 </div>
                                             </div>
                                         </div>
@@ -138,16 +164,10 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                    <!-- end col -->
                 </div>
-                <!-- end row -->
-
             </form>
-
         </div>
-        <!-- container-fluid -->
     </div>
 
     <script>

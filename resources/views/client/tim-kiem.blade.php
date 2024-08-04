@@ -1,7 +1,7 @@
 @extends('client.layouts.master')
 
 @section('title')
-    {{ $data['category']->name }}
+    Nhịp đập thể thao
 @endsection
 
 @section('content')
@@ -9,11 +9,11 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-10 mb-4">
-                    <h1 class="h2 mb-4 mt-2">Danh mục: {{ $data['category']->name }}</mark>
+                    <h1 class="h2 mb-4 mt-2">Từ khóa: </mark>
                     </h1>
                 </div>
                 <div class="col-lg-10">
-                    @foreach ($data['posts'] as $post)
+                    @foreach ($posts as $post)
                         <article class="card mb-4">
                             <div class="row card-body">
                                 <div class="col-md-4 mb-4 mb-md-0">
@@ -46,23 +46,23 @@
                         </article>
                     @endforeach
                 </div>
-                @if ($data['posts']->hasPages())
+                @if ($posts->hasPages())
                         <ul class="pagination justify-content-center">
                             {{-- Previous Page Link --}}
-                            @if ($data['posts']->onFirstPage())
+                            @if ($posts->onFirstPage())
                                 <li class="page-item disabled">
                                     <span class="page-link">&laquo;</span>
                                 </li>
                             @else
                                 <li class="page-item">
-                                    <a href="{{ $data['posts']->previousPageUrl() }}" class="page-link"
+                                    <a href="{{ $posts->previousPageUrl() }}" class="page-link"
                                         rel="prev">&laquo;</a>
                                 </li>
                             @endif
 
                             {{-- Pagination Elements --}}
-                            @foreach ($data['posts']->getUrlRange(1, $data['posts']->lastPage()) as $page => $url)
-                                @if ($page == $data['posts']->currentPage())
+                            @foreach ($posts->getUrlRange(1, $posts->lastPage()) as $page => $url)
+                                @if ($page == $posts->currentPage())
                                     <li class="page-item active">
                                         <span class="page-link">{{ $page }}</span>
                                     </li>
@@ -74,9 +74,9 @@
                             @endforeach
 
                             {{-- Next Page Link --}}
-                            @if ($data['posts']->hasMorePages())
+                            @if ($posts->hasMorePages())
                                 <li class="page-item">
-                                    <a href="{{ $data['posts']->nextPageUrl() }}" class="page-link"
+                                    <a href="{{ $posts->nextPageUrl() }}" class="page-link"
                                         rel="next">&raquo;</a>
                                 </li>
                             @else

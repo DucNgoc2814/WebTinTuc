@@ -3,7 +3,7 @@
 use App\Http\Controllers\admin\PostController as AdminPostController;
 use App\Http\Controllers\admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\client\PostController as ClientPostController;
-use App\Http\Controllers\client\CategoryController as ClientCategoryController;
+// use App\Http\Controllers\client\CategoryController as ClientCategoryController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\auth\LoginController;
 use App\Http\Controllers\auth\RegisterController;
@@ -21,20 +21,21 @@ Route::get('gioi-thieu',            [ClientController::class, 'gioiThieu'])->nam
 Route::get('bai-viet/{slug}',       [ClientPostController::class, 'baiVietChiTiet'])->name('bai-viet-chi-tiet');
 Route::get('danh-muc/{category}',   [ClientPostController::class, 'baiVietDanhMuc'])->name('danh-muc');
 Route::post('binh-luan',            [CommentController::class, 'store'])->name('binh-luan');
+Route::get('/tim-kiem',      [ClientPostController::class, 'timKiem'])->name('tim-kiem');
 
 Route::prefix('admin')
     ->name('admin.')
     ->middleware(['auth', 'IsAdmin'])
     ->group(function () {
-        Route::get('/',                [DashboardController::class, 'index'])->name('dashboard');
-        Route::resource('bai-viet',     AdminPostController::class);
-        Route::get('/bai-viet-da-xoa', [AdminPostController::class, 'postRecycle'])->name('bai-viet-da-xoa');
-        Route::post('/khoi-phuc/{post}', [AdminPostController::class, 'postRestore'])->name('restore');
-
-        Route::resource('danh-muc',     AdminCategoryController::class);
-
-        Route::get('/tai-khoan', [UserController::class, 'index'])->name('tai-khoan');
-        Route::resource('binh-luan',     AdminCommentController::class);
+        Route::get('/',                         [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/bai-viet-da-xoa',          [AdminPostController::class, 'postRecycle'])->name('bai-viet-da-xoa');
+        Route::post('/khoi-phuc/{post}',        [AdminPostController::class, 'postRestore'])->name('restore');
+        Route::get('/tai-khoan',                [UserController::class, 'index'])->name('tai-khoan');
+        Route::get('/binh-luan-da-xoa',         [AdminCommentController::class, 'trash_can'])->name('binh-luan-da-xoa');
+        Route::post('/khoi-phuc-binh-luan/{id}',[AdminCommentController::class, 'restore'])->name('khoi-phuc-binh-luan');
+        Route::resource('bai-viet',AdminPostController::class);
+        Route::resource('danh-muc',AdminCategoryController::class);
+        Route::resource('binh-luan',AdminCommentController::class);
 
     });
 
@@ -44,4 +45,4 @@ Route::post('dang-xuat',        [LoginController::class, 'logout'])->name('logou
 Route::get('dang-ky',           [RegisterController::class, 'showRegistrationForm'])->name('dang-ky');
 Route::post('dang-ky',          [RegisterController::class, 'register']);
 Route::get('quen-mat-khau',     [ResetPasswordController::class, 'showResetForm'])->name('quen-mat-khau');
-// Route::get('quen-mat-khau', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('quen-mat-khau',    [ResetPasswordController::class, 'forgot']);

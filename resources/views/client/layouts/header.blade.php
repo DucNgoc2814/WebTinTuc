@@ -38,8 +38,8 @@
                 </div>
 
                 <!-- search -->
-                <form class="search-bar">
-                    <input id="search-query" name="s" type="search" placeholder="Tìm kiếm">
+                <form class="search-bar" method="get" action="{{ route('tim-kiem') }}">
+                    <input id="search-query" name="search" type="search" placeholder="Tìm kiếm">
                 </form>
 
                 <button class="navbar-toggler border-0 order-1" type="button" data-toggle="collapse"

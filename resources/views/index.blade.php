@@ -185,7 +185,7 @@
                                 </div>
                                 <div class="media-body">
                                     <h5 class="mb-1"><a class="post-title"
-                                            href="author-single.html">{{ $tac_gia->name }}</a>
+                                            href="#">{{ $tac_gia->name }}</a>
                                     </h5>
                                     <span>Tác giả có số bài viết: 10</span>
                                 </div>

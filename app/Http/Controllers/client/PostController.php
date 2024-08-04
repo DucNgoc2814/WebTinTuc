@@ -64,7 +64,7 @@ class PostController extends Controller
         $post->views += 1;
         $post->save();
 
-        $comments = Comment::where('post_id', $post->id)->get();
+        $comments = Comment::where('post_id', $post->id)->orderbyDesc('id')->get();
         return view('client.bai-viet-chi-tiet', compact('post', 'comments'));
     }
     public function baiVietDanhMuc($slug)
@@ -87,5 +87,20 @@ class PostController extends Controller
             'category' => $category
         ];
         return view('client.bai-viet-danh-muc', compact('data'));
+    }
+
+    public function timKiem(Request $request){
+        $search = $request->search;
+        $posts = Post::query()
+            ->join('media', 'posts.id', 'media.mime_id')
+            ->where('media.mime_type', 'post')
+            ->where('is_active', 1)
+            ->where('title', 'LIKE', "%{$search}%")
+            ->orWhere('content', 'LIKE', "%{$search}%")
+            ->select('posts.*', 'media.url as image')
+            ->orderByDesc('id')
+            ->paginate(10)->appends(request()->except('page'));;
+
+        return view('client.tim-kiem', compact('posts','search'));
     }
 }

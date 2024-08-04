@@ -21,10 +21,10 @@ class CommentController extends Controller
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
-                return back()->with('success', 'Thao tác thành công!')->withFragment('comment-section');
+                return back()->withFragment('comment-section');
         } catch (Exception $exception) {
 
-            return back()->with('error', $exception->getMessage());
+            return back();
         }
     }
 }

@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('title')
-    Danh sách bình luận
+    Thùng rác bình luận
 @endsection
 
 @section('content')
@@ -12,12 +12,12 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0">Danh sách bình luận</h4>
+                        <h4 class="mb-sm-0">Thùng rác bình luận</h4>
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="javascript: void(0);">Bình luận</a></li>
-                                <li class="breadcrumb-item active">Danh sách</li>
+                                <li class="breadcrumb-item active">Thùng rác</li>
                             </ol>
                         </div>
 
@@ -114,18 +114,17 @@
                                                                                 <ul class="dropdown-menu dropdown-menu-end">
                                                                                     <li>
                                                                                         <form
-                                                                                            action="{{ route('admin.binh-luan.destroy', $comment) }}"
+                                                                                            action="{{ route('admin.khoi-phuc-binh-luan', $comment) }}"
                                                                                             method="post">
-                                                                                            @method('DELETE')
                                                                                             @csrf
 
                                                                                             <button
                                                                                                 class="dropdown-item remove-list"
                                                                                                 type="submit"
-                                                                                                onclick="return confirm('Bạn có chắc chắn muốn xóa danh mục này không?')">
+                                                                                                onclick="return confirm('Bạn có chắc chắn muốn khôi phục danh mục này không?')">
                                                                                                 <i
                                                                                                     class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>
-                                                                                                Xóa
+                                                                                                Khôi phục
                                                                                             </button>
                                                                                         </form>
                                                                                     </li>

@@ -13,11 +13,12 @@ class CommentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    const PATH_VIEW = 'admin.comment.';
+    const PATH_VIEW = 'admin.comments.';
 
     public function index()
     {
-        //
+        $comments = Comment::with('post')->get();
+        return view(self::PATH_VIEW . __FUNCTION__, compact('comments'));
     }
 
     /**
@@ -33,7 +34,7 @@ class CommentController extends Controller
     public function trash_can()
     {
         $comments = Comment::onlyTrashed()->get();
-        return view(self::PATH_VIEW . __FUNCTION__, compact('deletedCatelogues'));
+        return view(self::PATH_VIEW . 'recycle', compact('comments'));
     }
 
     public function restore($id)
