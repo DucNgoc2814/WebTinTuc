@@ -89,7 +89,8 @@ class PostController extends Controller
         return view('client.bai-viet-danh-muc', compact('data'));
     }
 
-    public function timKiem(Request $request){
+    public function timKiem(Request $request)
+    {
         $search = $request->search;
         $posts = Post::query()
             ->join('media', 'posts.id', 'media.mime_id')
@@ -101,6 +102,6 @@ class PostController extends Controller
             ->orderByDesc('id')
             ->paginate(10)->appends(request()->except('page'));;
 
-        return view('client.tim-kiem', compact('posts','search'));
+        return view('client.tim-kiem', compact('posts', 'search'));
     }
 }

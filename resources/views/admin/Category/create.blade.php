@@ -37,6 +37,11 @@
                                     <label class="form-label" for="product-title-input">Tên danh mục</label>
                                     <input type="text" class="form-control" id="product-title-input" value=""
                                         placeholder="Thêm tiêu đề" name="name">
+                                    @error('name')
+                                        <span role="alert" class="text-danger">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
                         </div>

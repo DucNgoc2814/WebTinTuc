@@ -19,9 +19,9 @@ Route::get('/',                     [ClientController::class, 'index'])->name('/
 Route::get('lien-he',               [ClientController::class, 'lienHe'])->name('lien-he');
 Route::get('gioi-thieu',            [ClientController::class, 'gioiThieu'])->name('gioi-thieu');
 Route::get('bai-viet/{slug}',       [ClientPostController::class, 'baiVietChiTiet'])->name('bai-viet-chi-tiet');
-Route::get('danh-muc/{category}',   [ClientPostController::class, 'baiVietDanhMuc'])->name('danh-muc');
+Route::get('danh-muc/{slug}',       [ClientPostController::class, 'baiVietDanhMuc'])->name('danh-muc');
 Route::post('binh-luan',            [CommentController::class, 'store'])->name('binh-luan');
-Route::get('/tim-kiem',      [ClientPostController::class, 'timKiem'])->name('tim-kiem');
+Route::get('/tim-kiem',             [ClientPostController::class, 'timKiem'])->name('tim-kiem');
 
 Route::prefix('admin')
     ->name('admin.')
@@ -36,7 +36,6 @@ Route::prefix('admin')
         Route::resource('bai-viet',AdminPostController::class);
         Route::resource('danh-muc',AdminCategoryController::class);
         Route::resource('binh-luan',AdminCommentController::class);
-
     });
 
 Route::get('dang-nhap',         [LoginController::class, 'showLoginForm'])->name('dang-nhap');

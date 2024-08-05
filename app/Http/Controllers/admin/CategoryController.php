@@ -31,7 +31,6 @@ class CategoryController extends Controller
      */
     public function create()
     {
-
         return view(self::PATH_VIEW . __FUNCTION__);
     }
 
@@ -40,16 +39,16 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        try {
-            DB::transaction(function () use ($request) {
-                $slug = Str::slug(ASCII::to_ascii($request->name));
+        $category = $request->validated();
 
-                Category::create([
-                    'name' => $request->name,
-                    'slug' => $slug,
-                    'is_active' => '1'
-                ]);
-            }, 3);
+        try {
+            $slug = Str::slug(ASCII::to_ascii($category->name));
+
+            Category::create([
+                'name' => $category->name,
+                'slug' => $slug,
+                'is_active' => '1'
+            ]);
 
             return redirect()
                 ->route('admin.danh-muc.index')
@@ -75,7 +74,6 @@ class CategoryController extends Controller
     {
         $category = Category::query()->findOrFail($category);
         return view(self::PATH_VIEW . __FUNCTION__, compact('category'));
-
     }
 
     /**
@@ -85,16 +83,14 @@ class CategoryController extends Controller
     {
 
         try {
-            DB::transaction(function () use ($request, $category) {
-                $slug = Str::slug(ASCII::to_ascii($request->name));
+            $slug = Str::slug(ASCII::to_ascii($request->name));
 
-                Category::query()
+            Category::query()
                 ->where('id', $category)
                 ->update([
                     'name' => $request->name,
                     'slug' => $slug,
                 ]);
-            }, 3);
 
             return redirect()
                 ->route('admin.danh-muc.index')
@@ -103,14 +99,39 @@ class CategoryController extends Controller
 
             return back()->with('error', $exception->getMessage());
         }
-        dd($category);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy(String $category)
     {
-        //
+        try {
+            Category::query()->find($category)->update([
+                'is_active' => 0
+            ]);
+
+            return back()->with('success', 'Thao tác thành công!');
+        } catch (Exception $exception) {
+            return back()->with('error', $exception->getMessage());
+        }
+    }
+
+    public function postRecycle()
+    {
+        $posts = Category::where('is_active', 0)->orderByDesc('id')->paginate(10);
+        return view(self::PATH_VIEW . 'recycle', compact('posts'));
+    }
+    public function postRestore(String $category)
+    {
+        try {
+            Category::query()->find($category)->update([
+                'is_active' => 1
+            ]);
+
+            return back()->with('success', 'Thao tác thành công!');
+        } catch (Exception $exception) {
+            return back()->with('error', $exception->getMessage());
+        }
     }
 }

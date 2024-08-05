@@ -21,7 +21,7 @@ class ClientController extends Controller
         $post_new       = (self::URL_POST)::load_new_posts();
         $post_trending  = (self::URL_POST)::load_trending_posts();
         $posts      = (self::URL_POST)::load_all_posts();
-        
+
         $data = [
             'tac_gias' => $tac_gias,
             'danh_mucs' => $danh_mucs,

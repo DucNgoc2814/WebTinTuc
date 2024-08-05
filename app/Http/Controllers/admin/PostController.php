@@ -49,21 +49,20 @@ class PostController extends Controller
 
     public function store(StorePostRequest $request)
     {
-        dd($request->all());
         $image = '';
         $validatedData = $request->validated();
         try {
-            DB::transaction(function () use ($request, &$image) {
+            DB::transaction(function () use ($validatedData, $request, $image) {
                 if ($request->hasFile('image')) {
                     $image = Storage::put('', $request->file("image"));
                 }
                 $slug = Str::slug($request['title']);
                 $post = Post::create([
                     'user_id' => auth()->user()->id,
-                    'title' => $request['title'],
+                    'title' => $validatedData['title'],
                     'slug' => $slug,
-                    'description' => $request['description'],
-                    'content' => $request['content'],
+                    'description' => $validatedData['description'],
+                    'content' => $validatedData['content'],
                     'category_id' => $request['category_id'],
                     'is_active' => $request->has('is_active'),
                     'is_trending' => $request->has('is_trending'),
@@ -84,8 +83,8 @@ class PostController extends Controller
             if ($image && Storage::exists($image)) {
                 Storage::delete($image);
             }
-            dd($exception->getMessage());
-            // return back()->with('error', $exception->getMessage());
+            // dd($exception->getMessage());
+            return back()->with('error', $exception->getMessage());
         }
     }
 
@@ -175,7 +174,7 @@ class PostController extends Controller
     public function destroy(String $post)
     {
         try {
-            Post::query()->find($post)->update([
+            $post = Post::query()->find($post)->update([
                 'is_active' => 0
             ]);
 

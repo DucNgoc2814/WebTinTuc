@@ -25,13 +25,15 @@ class ResetPasswordController extends Controller
         ]);
         $password = substr(str_shuffle('abcdefghijklmnopqrstuvwxyz0123456789'), 0, 6);
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        
+
         User::where('email', $request->email)->update([
             'password' => $hashedPassword
         ]);
+
         Mail::raw("Mật khẩu của bạn là: {$password}", function ($message) use ($request) {
             $message->to($request->email)->subject('Thông tin mật khẩu');
         });
+
         return redirect()->route('dang-nhap')->with('succes', 'Vui lòng check gmail');
     }
 }

@@ -109,7 +109,7 @@
                                                                                     <li class="dropdown-divider"></li>
                                                                                     <li>
                                                                                         <form
-                                                                                            action="{{ route('admin.bai-viet.destroy', $category) }}"
+                                                                                            action="{{ route('admin.danh-muc.destroy', $category) }}"
                                                                                             method="post">
                                                                                             @method('DELETE')
                                                                                             @csrf

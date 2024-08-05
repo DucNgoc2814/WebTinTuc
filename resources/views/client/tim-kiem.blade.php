@@ -9,7 +9,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-10 mb-4">
-                    <h1 class="h2 mb-4 mt-2">Từ khóa: </mark>
+                    <h1 class="h2 mb-4 mt-2">Từ khóa: {{ $search }}</mark>
                     </h1>
                 </div>
                 <div class="col-lg-10">
@@ -18,8 +18,8 @@
                             <div class="row card-body">
                                 <div class="col-md-4 mb-4 mb-md-0">
                                     <div class="post-slider slider-sm">
-                                        <img src="{{ \Storage::url($post->image) }}" class="card-img"
-                                            alt="post-thumb" style="height:200px; object-fit: cover;">
+                                        <img src="{{ \Storage::url($post->image) }}" class="card-img" alt="post-thumb"
+                                            style="height:200px; object-fit: cover;">
                                     </div>
                                 </div>
                                 <div class="col-md-8">
@@ -47,45 +47,43 @@
                     @endforeach
                 </div>
                 @if ($posts->hasPages())
-                        <ul class="pagination justify-content-center">
-                            {{-- Previous Page Link --}}
-                            @if ($posts->onFirstPage())
-                                <li class="page-item disabled">
-                                    <span class="page-link">&laquo;</span>
+                    <ul class="pagination justify-content-center">
+                        {{-- Previous Page Link --}}
+                        @if ($posts->onFirstPage())
+                            <li class="page-item disabled">
+                                <span class="page-link">&laquo;</span>
+                            </li>
+                        @else
+                            <li class="page-item">
+                                <a href="{{ $posts->previousPageUrl() }}" class="page-link" rel="prev">&laquo;</a>
+                            </li>
+                        @endif
+
+                        {{-- Pagination Elements --}}
+                        @foreach ($posts->getUrlRange(1, $posts->lastPage()) as $page => $url)
+                            @if ($page == $posts->currentPage())
+                                <li class="page-item active">
+                                    <span class="page-link">{{ $page }}</span>
                                 </li>
                             @else
                                 <li class="page-item">
-                                    <a href="{{ $posts->previousPageUrl() }}" class="page-link"
-                                        rel="prev">&laquo;</a>
+                                    <a href="{{ $url }}" class="page-link">{{ $page }}</a>
                                 </li>
                             @endif
+                        @endforeach
 
-                            {{-- Pagination Elements --}}
-                            @foreach ($posts->getUrlRange(1, $posts->lastPage()) as $page => $url)
-                                @if ($page == $posts->currentPage())
-                                    <li class="page-item active">
-                                        <span class="page-link">{{ $page }}</span>
-                                    </li>
-                                @else
-                                    <li class="page-item">
-                                        <a href="{{ $url }}" class="page-link">{{ $page }}</a>
-                                    </li>
-                                @endif
-                            @endforeach
-
-                            {{-- Next Page Link --}}
-                            @if ($posts->hasMorePages())
-                                <li class="page-item">
-                                    <a href="{{ $posts->nextPageUrl() }}" class="page-link"
-                                        rel="next">&raquo;</a>
-                                </li>
-                            @else
-                                <li class="page-item disabled">
-                                    <span class="page-link">&raquo;</span>
-                                </li>
-                            @endif
-                        </ul>
-                    @endif
+                        {{-- Next Page Link --}}
+                        @if ($posts->hasMorePages())
+                            <li class="page-item">
+                                <a href="{{ $posts->nextPageUrl() }}" class="page-link" rel="next">&raquo;</a>
+                            </li>
+                        @else
+                            <li class="page-item disabled">
+                                <span class="page-link">&raquo;</span>
+                            </li>
+                        @endif
+                    </ul>
+                @endif
             </div>
         </div>
     </section>
